@@ -29,7 +29,7 @@ pm2 start pm2.json
 
 主要修改``[remote "origin"] > url``字段，是的url带有``username``和``password``
 
-···
+```
 [core]
         repositoryformatversion = 0
         filemode = true
