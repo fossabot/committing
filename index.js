@@ -1,10 +1,27 @@
-const simpleGit = require('simple-git')(__dirname);
+const fs = require('fs');
+const git = require('simple-git')(__dirname);
 
-simpleGit.commit(`hello world`, (err, a, b) => {
-  console.log(err, a, b);
-  if (err) {
-    console.error(err);
-  } else {
-    console.log(`commit`);
-  }
-});
+const META_FILE_PATH = './meta.json';
+
+async function main() {
+  const meta = fs.readFileSync(META_FILE_PATH);
+
+  await new Promise((resolve, reject) => {
+    git.pull((err, update) => {
+      err ? reject(err) : resolve(update);
+    });
+  });
+
+  meta.times = meta.times + 1;
+  meta.updatedAt = new Date();
+
+  fs.writeFileSync(META_FILE_PATH, JSON.stringify(meta, null, 2));
+
+  await new Promise((resolve, reject) => {
+    git.commit(`${meta.times}th commit`, (err, data) => {
+      err ? reject(err) : resolve(data);
+    });
+  });
+}
+
+main();
