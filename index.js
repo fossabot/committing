@@ -17,7 +17,8 @@ const fs = require('fs');
 const git = require('simple-git')(__dirname);
 const schedule = require('node-schedule');
 const emoji = require('./emojis.json');
-const emojiNumber = Object.keys(emoji).length;
+const emojiKeys = Object.keys(emoji);
+const emojiNumber = emojiKeys.length;
 
 const META_FILE_PATH = './meta.json';
 
@@ -26,7 +27,8 @@ function getEmoji() {
   if (!emoji[index]) {
     return getEmoji();
   } else {
-    const entity = emoji[index];
+    const key = emojiKeys[index];
+    const entity = emoji[key];
     if (!entity.char) {
       return getEmoji();
     } else {
