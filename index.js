@@ -16,11 +16,24 @@ process.on('unhandledRejection', (reason, p) => {
 const fs = require('fs');
 const git = require('simple-git')(__dirname);
 const schedule = require('node-schedule');
-
-const rule = new schedule.RecurrenceRule();
-rule.second = [0, 10, 20, 30, 40, 50];
+const emoji = require('./emojis.json');
+const emojiNumber = Object.keys(emoji).length;
 
 const META_FILE_PATH = './meta.json';
+
+function getEmoji() {
+  const index = parseInt(Math.random() * emojiNumber);
+  if (!emoji[index]) {
+    return getEmoji();
+  } else {
+    const entity = emoji[index];
+    if (!entity.char) {
+      return getEmoji();
+    } else {
+      return entity.char;
+    }
+  }
+}
 
 async function main() {
   const meta = JSON.parse(
@@ -43,14 +56,15 @@ async function main() {
   await new Promise((resolve, reject) => {
     git
       .add('./')
-      .commit(`${meta.times}th commit`)
+      .commit(`${meta.times}th commit ${getEmoji()}`)
       .push((err, data) => {
         err ? reject(err) : resolve(data);
       });
   });
 }
 
-schedule.scheduleJob('* */1 * * * *', function() {
+// schedule.scheduleJob('* */1 * * * *', function() {
+schedule.scheduleJob('*/5 * * * * *', function() {
   // 每隔1分钟commit一次
   main();
 });
