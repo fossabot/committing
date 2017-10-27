@@ -1,0 +1,22 @@
+{
+  "name": "committttttttttttttttttttttting",
+  "version": "1.0.0",
+  "description": "commit every days",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/axetroy/committttttttttttttttttttttting.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/axetroy/committttttttttttttttttttttting/issues"
+  },
+  "homepage": "https://github.com/axetroy/committttttttttttttttttttttting#readme",
+  "dependencies": {
+    "simple-git": "^1.80.1"
+  }
+}
