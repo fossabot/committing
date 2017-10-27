@@ -1,5 +1,24 @@
+process.on('SIGINT', () => {
+  console.error(new Error(`Exist sigint`));
+  process.exit(1);
+});
+process.on('exit', function() {
+  console.info(`process ${process.pid} exit.`);
+});
+process.on('uncaughtException', function(err) {
+  console.error('Error caught in uncaughtException event:', err);
+});
+
+process.on('unhandledRejection', (reason, p) => {
+  console.error('Unhandled Rejection at:', p, 'reason:', reason);
+});
+
 const fs = require('fs');
 const git = require('simple-git')(__dirname);
+const schedule = require('node-schedule');
+
+const rule = new schedule.RecurrenceRule();
+rule.second = [0, 10, 20, 30, 40, 50];
 
 const META_FILE_PATH = './meta.json';
 
@@ -31,4 +50,7 @@ async function main() {
   });
 }
 
-main();
+schedule.scheduleJob('* */1 * * * *', function() {
+  // 每隔1分钟commit一次
+  main();
+});

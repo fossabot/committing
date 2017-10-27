@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/axetroy/committttttttttttttttttttttting#readme",
   "dependencies": {
+    "node-schedule": "^1.2.5",
     "simple-git": "^1.80.1"
   }
 }

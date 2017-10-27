@@ -2,18 +2,72 @@
 # yarn lockfile v1
 
 
+cron-parser@^2.4.0:
+  version "2.4.3"
+  resolved "http://registry.npm.taobao.org/cron-parser/download/cron-parser-2.4.3.tgz#cae844c20117fc72c678f63ac83c7884be199e78"
+  dependencies:
+    is-nan "^1.2.1"
+    moment-timezone "^0.5.0"
+
 debug@^2.6.7:
   version "2.6.9"
   resolved "http://registry.npm.taobao.org/debug/download/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
   dependencies:
     ms "2.0.0"
 
+define-properties@^1.1.1:
+  version "1.1.2"
+  resolved "http://registry.npm.taobao.org/define-properties/download/define-properties-1.1.2.tgz#83a73f2fea569898fb737193c8f873caf6d45c94"
+  dependencies:
+    foreach "^2.0.5"
+    object-keys "^1.0.8"
+
+foreach@^2.0.5:
+  version "2.0.5"
+  resolved "http://registry.npm.taobao.org/foreach/download/foreach-2.0.5.tgz#0bee005018aeb260d0a3af3ae658dd0136ec1b99"
+
+is-nan@^1.2.1:
+  version "1.2.1"
+  resolved "http://registry.npm.taobao.org/is-nan/download/is-nan-1.2.1.tgz#9faf65b6fb6db24b7f5c0628475ea71f988401e2"
+  dependencies:
+    define-properties "^1.1.1"
+
+long-timeout@0.1.1:
+  version "0.1.1"
+  resolved "http://registry.npm.taobao.org/long-timeout/download/long-timeout-0.1.1.tgz#9721d788b47e0bcb5a24c2e2bee1a0da55dab514"
+
+moment-timezone@^0.5.0:
+  version "0.5.13"
+  resolved "http://registry.npm.taobao.org/moment-timezone/download/moment-timezone-0.5.13.tgz#99ce5c7d827262eb0f1f702044177f60745d7b90"
+  dependencies:
+    moment ">= 2.9.0"
+
+"moment@>= 2.9.0":
+  version "2.19.1"
+  resolved "http://registry.npm.taobao.org/moment/download/moment-2.19.1.tgz#56da1a2d1cbf01d38b7e1afc31c10bcfa1929167"
+
 ms@2.0.0:
   version "2.0.0"
   resolved "http://registry.npm.taobao.org/ms/download/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
+
+node-schedule@^1.2.5:
+  version "1.2.5"
+  resolved "http://registry.npm.taobao.org/node-schedule/download/node-schedule-1.2.5.tgz#fb30f4e4d1dd1e81c536f9495d5da0e9e2d7de14"
+  dependencies:
+    cron-parser "^2.4.0"
+    long-timeout "0.1.1"
+    sorted-array-functions "^1.0.0"
+
+object-keys@^1.0.8:
+  version "1.0.11"
+  resolved "http://registry.npm.taobao.org/object-keys/download/object-keys-1.0.11.tgz#c54601778ad560f1142ce0e01bcca8b56d13426d"
 
 simple-git@^1.80.1:
   version "1.80.1"
   resolved "http://registry.npm.taobao.org/simple-git/download/simple-git-1.80.1.tgz#48104cb4ac72576937853e1afd1eeffdc97acb29"
   dependencies:
     debug "^2.6.7"
+
+sorted-array-functions@^1.0.0:
+  version "1.0.0"
+  resolved "http://registry.npm.taobao.org/sorted-array-functions/download/sorted-array-functions-1.0.0.tgz#c0b554d9e709affcbe56d34c1b2514197fd38279"
