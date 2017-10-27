@@ -22,9 +22,12 @@ async function main() {
   });
 
   await new Promise((resolve, reject) => {
-    git.add('./').commit(`${meta.times}th commit`, (err, data) => {
-      err ? reject(err) : resolve(data);
-    });
+    git
+      .add('./')
+      .commit(`${meta.times}th commit`)
+      .push((err, data) => {
+        err ? reject(err) : resolve(data);
+      });
   });
 }
 
