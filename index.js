@@ -64,7 +64,7 @@ async function main() {
 }
 
 // schedule.scheduleJob('* */1 * * * *', function() {
-schedule.scheduleJob('*/5 * * * * *', function() {
+schedule.scheduleJob('* * */1 * * *', function() {
   // 每隔1分钟commit一次
   main();
 });
