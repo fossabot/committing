@@ -78,8 +78,7 @@ async function commit() {
 
 // 没隔1小时commit一次
 // 不过分吧？
-// schedule.scheduleJob('0 0 */1 * * *', function() {
-schedule.scheduleJob('0 */1 * * * *', function() {
+schedule.scheduleJob('0 0 */1 * * *', function() {
   commit()
     .then(() => {
       console.info(`Commit success`);
