@@ -1,5 +1,7 @@
 # committttttttttttttttttttttting
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/axetroy/committttttttttttttttttttttting.svg)](https://greenkeeper.io/)
+
 每天定时commit，保持commit连击不间断...
 
 ### 使用
