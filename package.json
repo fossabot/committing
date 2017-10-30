@@ -17,6 +17,11 @@
   },
   "homepage": "https://github.com/axetroy/committttttttttttttttttttttting#readme",
   "dependencies": {
+    "chalk": "^2.3.0",
+    "fs-extra": "^4.0.2",
+    "lodash": "^4.17.4",
+    "moment": "^2.19.1",
+    "node-schedule": "^1.2.5",
     "simple-git": "^1.80.1"
   }
 }
