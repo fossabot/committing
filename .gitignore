@@ -340,3 +340,6 @@ __pycache__/
 
 build
 models.thrift
+
+.temp
+logs

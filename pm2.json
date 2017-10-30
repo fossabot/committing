@@ -1,0 +1,19 @@
+{
+  "apps": [
+    {
+      "name": "committttttttttttttttttttttting",
+      "script": "index.js",
+      "instances": "1",
+      "exec_mode": "cluster",
+      "env": {},
+      "autorestart": true,
+      "max_memory_restart": "100M",
+      "kill_timeout": 2000,
+      "restart_delay": 2000,
+      "log_date_format": "YYYY-MM-DD HH:mm:ss",
+      "pid_file": "./.temp/pid/duomi.pid",
+      "out_file": "./logs/pm2/duomi-out.log",
+      "error_file": "./logs/pm2/duomi-error.log"
+    }
+  ]
+}
