@@ -84,7 +84,7 @@ async function commit(targetPath, date) {
       .commit(
         `[${moment(meta.updatedAt).format(
           `YYYY-MM-DD HH:mm:ss`
-        )}] ${meta.times}th commit ${getEmoji()}`
+        )}] ${meta.times}th ${getEmoji()}`
       )
       .push((err, data) => {
         err ? reject(err) : resolve(data);
