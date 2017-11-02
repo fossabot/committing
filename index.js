@@ -69,7 +69,7 @@ async function commit(targetPath, date) {
     });
   });
 
-  meta.times = meta.times + 1;
+  meta.times = (meta.times || 0) + 1;
   meta.updatedAt = date;
 
   await fs.writeJson(META_FILE_PATH, meta, {
