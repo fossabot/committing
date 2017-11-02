@@ -21,14 +21,18 @@ process.on('unhandledRejection', (reason, p) => {
 });
 
 const fs = require('fs-extra');
+const path = require('path');
 const _ = require('lodash');
 const moment = require('moment');
 const git = require('simple-git')(__dirname);
 const schedule = require('node-schedule');
+const gitConfigParser = require('parse-git-config');
+const gitUrlParser = require('git-url-parse');
 const emoji = require('./emojis.json');
 const emojiKeys = Object.keys(emoji);
 
-const META_FILE_PATH = './meta.json';
+const cwd = process.cwd();
+const META_FILE_PATH = '.committing';
 
 /**
  * get random emoji char
@@ -48,8 +52,16 @@ function getEmoji() {
 /*
 * commit the project
 * */
-async function commit() {
-  const meta = await fs.readJson(META_FILE_PATH, { encoding: 'utf8' });
+async function commit(targetPath, date) {
+  await fs.ensureFile(path.join(targetPath, META_FILE_PATH));
+
+  let meta = {};
+
+  try {
+    meta = await fs.readJson(META_FILE_PATH, { encoding: 'utf8' });
+  } catch (err) {
+    console.error(err);
+  }
 
   await new Promise((resolve, reject) => {
     git.pull((err, update) => {
@@ -58,9 +70,13 @@ async function commit() {
   });
 
   meta.times = meta.times + 1;
-  meta.updatedAt = new Date();
+  meta.updatedAt = date;
 
-  await fs.writeJson(META_FILE_PATH, meta, { encoding: 'utf8' });
+  await fs.writeJson(META_FILE_PATH, meta, {
+    spaces: 2,
+    replacer: null,
+    encoding: 'utf8'
+  });
 
   await new Promise((resolve, reject) => {
     git
@@ -76,14 +92,74 @@ async function commit() {
   });
 }
 
-// 没隔1小时commit一次
-// 不过分吧？
-schedule.scheduleJob('0 0 */1 * * *', function() {
-  commit()
-    .then(() => {
-      console.info(`Commit success`);
-    })
-    .catch(err => {
+/**
+ * main function
+ * */
+function main(targetPath, rule = '*/5 * * * * *') {
+  // make sure .git dir exist
+  try {
+    fs.statSync(path.join(targetPath, '.git'));
+  } catch (err) {
+    console.error(
+      `Can not found ${chalk.green('.git')} dir in ${chalk.green(targetPath)}`
+    );
+    throw err;
+  }
+
+  try {
+    const result = gitConfigParser.sync({ cwd: targetPath });
+    const remote = result['remote "origin"'];
+    const configPath = path.join(targetPath, '.git', 'config');
+    if (!remote) {
+      console.info(`Can not found remote url in ${configPath}`);
+      return;
+    }
+
+    const gitUrl = gitUrlParser(remote.url);
+
+    // http
+    if (gitUrl.protocol.indexOf('http') >= 0) {
+      const url = `${gitUrl.protocol}://${chalk.green(
+        '{username}@{password}'
+      )}${gitUrl.resource + gitUrl.pathname}`;
+
+      console.info(
+        `Please check the ${chalk.green(
+          configPath
+        )} remote url contain the ${chalk.green('username')} and ${chalk.green(
+          'password'
+        )}`
+      );
+
+      console.info(`like this: ${url}`);
+      return;
+    }
+
+    // check is ssh or not
+    if (gitUrl.protocol !== 'ssh') {
+      console.info(`Not ssh remote url`);
+      return;
+    }
+  } catch (err) {
+    if (err) {
       console.error(err);
-    });
-});
+    }
+    return;
+  }
+
+  // start the job
+  schedule.scheduleJob(rule, function() {
+    let d = new Date();
+    commit(targetPath, d)
+      .then(() => {
+        console.info(`Commit success`);
+        process.chdir(cwd);
+      })
+      .catch(err => {
+        console.error(err);
+        process.chdir(cwd);
+      });
+  });
+}
+
+module.exports = main;
