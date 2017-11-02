@@ -95,7 +95,7 @@ async function commit(targetPath, date) {
 /**
  * main function
  * */
-function main(targetPath, rule = '*/5 * * * * *') {
+function main(targetPath, rule = '* * */1 * * *') {
   // make sure .git dir exist
   try {
     fs.statSync(path.join(targetPath, '.git'));
