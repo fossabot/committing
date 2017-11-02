@@ -4,6 +4,8 @@
 
 每天定时commit，保持commit连击不间断...
 
+当前是间隔一小时commit
+
 ### 使用
 
 因为push需要验证，所以要么指定github的账号密码，要么使用ssh
@@ -43,4 +45,11 @@ pm2 start pm2.json
 [branch "master"]
         remote = origin
         merge = refs/heads/master
+```
+
+### 运行
+
+```bash
+npm install pm2 -g
+pm2 start pm2.json
 ```
