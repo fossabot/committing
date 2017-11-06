@@ -1,10 +1,9 @@
 {
   "apps": [
     {
-      "name": "committttttttttttttttttttttting",
-      "script": "./bin/committing",
-      "instances": "1",
-      "exec_mode": "cluster",
+      "name": "committing",
+      "script": "./example.js",
+      "exec_mode": "fork",
       "env": {},
       "autorestart": true,
       "max_memory_restart": "100M",
