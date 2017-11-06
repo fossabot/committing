@@ -93,9 +93,11 @@ async function commit(targetPath, date) {
 }
 
 /**
- * main function
- * */
-function main(targetPath, rule = '* * */1 * * *') {
+ * check the dir is pushable
+ * @param targetPath
+ * @returns {boolean}
+ */
+function checkPushAble(targetPath) {
   // make sure .git dir exist
   try {
     fs.statSync(path.join(targetPath, '.git'));
@@ -112,40 +114,52 @@ function main(targetPath, rule = '* * */1 * * *') {
     const configPath = path.join(targetPath, '.git', 'config');
     if (!remote) {
       console.info(`Can not found remote url in ${configPath}`);
-      return;
+      return false;
     }
 
     const gitUrl = gitUrlParser(remote.url);
+    const protocol = gitUrl.protocol;
+    const user_pwd = gitUrl.user.split(':');
+    const user = user_pwd[0];
+    const password = user_pwd[1];
 
     // http
-    if (gitUrl.protocol.indexOf('http') >= 0) {
-      const url = `${gitUrl.protocol}://${chalk.green(
-        '{username}@{password}'
-      )}${gitUrl.resource + gitUrl.pathname}`;
+    if (protocol.indexOf('http') >= 0) {
+      // if not set the password
+      if (!user && !password) {
+        const url = `${protocol}://${chalk.green(
+          '{username}@{password}'
+        )}${gitUrl.resource + gitUrl.pathname}`;
 
-      console.info(
-        `Please check the ${chalk.green(
-          configPath
-        )} remote url contain the ${chalk.green('username')} and ${chalk.green(
-          'password'
-        )}`
-      );
+        console.info(
+          `Please check the ${chalk.green(
+            configPath
+          )} remote url contain the ${chalk.green(
+            'username'
+          )} and ${chalk.green('password')}`
+        );
 
-      console.info(`like this: ${url}`);
-      return;
-    }
-
-    // check is ssh or not
-    if (gitUrl.protocol !== 'ssh') {
+        console.info(`like this: ${url}`);
+        return;
+      }
+    } else if (protocol !== 'ssh') {
+      // check is ssh or not
       console.info(`Not ssh remote url`);
-      return;
+      return false;
     }
   } catch (err) {
     if (err) {
       console.error(err);
     }
-    return;
+    return false;
   }
+}
+
+/**
+ * main function
+ * */
+function main(targetPath, rule = '* * */1 * * *') {
+  checkPushAble(targetPath);
 
   // start the job
   schedule.scheduleJob(rule, function() {

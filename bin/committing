@@ -1,0 +1,20 @@
+#!/usr/bin/env node
+
+const path = require('path');
+const program = require('caporal');
+
+const pkg = require('../package.json');
+const committing = require('../index');
+
+program
+  .name(pkg.name)
+  .version(pkg.version)
+  .description(pkg.description)
+  .argument('<repo>', 'Github Repo path', program.STRING, './')
+  .option('--rule <rule>', 'Cron rule string', program.STRING, '* * */1 * * *')
+  .action((argv, options) => {
+    const targetPath = path.join(process.cwd(), argv.repo);
+    committing(targetPath, options.rule);
+  });
+
+program.parse(process.argv);

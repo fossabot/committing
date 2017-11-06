@@ -2,7 +2,7 @@
   "apps": [
     {
       "name": "committttttttttttttttttttttting",
-      "script": "index.js",
+      "script": "./bin/committing",
       "instances": "1",
       "exec_mode": "cluster",
       "env": {},
