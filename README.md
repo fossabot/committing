@@ -1,6 +1,6 @@
-# committttttttttttttttttttttting
+# committing
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/axetroy/committttttttttttttttttttttting.svg)](https://greenkeeper.io/)
+[![Greenkeeper badge](https://badges.greenkeeper.io/axetroy/committing.svg)](https://greenkeeper.io/)
 
 每天定时commit，保持commit连击不间断...
 
@@ -8,48 +8,20 @@
 
 ### 使用
 
-因为push需要验证，所以要么指定github的账号密码，要么使用ssh
-
-有三种方式:
-
-自己fork项目
-
-1. 指定账号密码clone项目
-
 ```bash
-git clone https:username:password@github.com/username/committttttttttttttttttttttting
-cd committttttttttttttttttttttting
-pm2 start pm2.json
+npm install committing -g
+committing ./
+# print the help information
+committing --help
 ```
 
-2. 使用ssh克隆项目
-```bash
-git clone git@github.com:username/committttttttttttttttttttttting.git
-cd committttttttttttttttttttttting
-pm2 start pm2.json
-```
+## Contributors
 
-3. 修改``.git/config``文件
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+| [<img src="https://avatars1.githubusercontent.com/u/9758711?v=3" width="100px;"/><br /><sub>Axetroy</sub>](http://axetroy.github.io)<br />[💻](https://github.com/axetroy/committing/commits?author=axetroy) [🐛](https://github.com/axetroy/committing/issues?q=author%3Aaxetroy) 🎨 |
+| :---: |
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 
-主要修改``[remote "origin"] > url``字段，是的url带有``username``和``password``
+## License
 
-```
-[core]
-        repositoryformatversion = 0
-        filemode = true
-        bare = false
-        logallrefupdates = true
-[remote "origin"]
-        url = https://username:password@github.com/axetroy/committttttttttttttttttttttting.git
-        fetch = +refs/heads/*:refs/remotes/origin/*
-[branch "master"]
-        remote = origin
-        merge = refs/heads/master
-```
-
-### 运行
-
-```bash
-npm install pm2 -g
-pm2 start pm2.json
-```
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Faxetroy%2Fcomitting.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Faxetroy%2Fcomitting?ref=badge_large)
