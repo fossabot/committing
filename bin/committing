@@ -11,7 +11,7 @@ program
   .version(pkg.version)
   .description(pkg.description)
   .argument('<repo>', 'Github Repo path', program.STRING, './')
-  .option('--rule <rule>', 'Cron rule string', program.STRING, '* * */1 * * *')
+  .option('--rule <rule>', 'Cron rule string', program.STRING, '0 0 */1 * * *')
   .action((argv, options) => {
     const targetPath = path.join(process.cwd(), argv.repo);
     committing(targetPath, options.rule);

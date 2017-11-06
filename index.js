@@ -158,7 +158,7 @@ function checkPushAble(targetPath) {
 /**
  * main function
  * */
-function main(targetPath, rule = '* * */1 * * *') {
+function main(targetPath, rule = '0 0 */1 * * *') {
   checkPushAble(targetPath);
 
   // start the job
